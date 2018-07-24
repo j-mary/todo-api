@@ -1,13 +1,17 @@
 {
   "name": "todo-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Todo API on Node, Express, MongoDB, etc",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "mocha server/**/*.test.js",
     "test-watch": "nodemon --exec \"npm test\""
   },
-  "author": "",
+  "engines": {
+    "node": "8.11.3"
+  },
+  "author": "Jude Ocheje",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
