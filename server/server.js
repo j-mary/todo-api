@@ -31,3 +31,5 @@ app.listen(port, () => {
      ${chalk.white.bold.bgGreen(` Server running on port ${port} `)} 
   `)
 })
+
+module.exports = { app }
