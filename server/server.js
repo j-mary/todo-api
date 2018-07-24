@@ -1,3 +1,5 @@
+require('./config/config')
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const chalk = require('chalk')
@@ -8,12 +10,11 @@ const { mongoose } = require('./db/mongoose')
 const { Todo } = require('./models/todo')
 const { User } = require('./models/user')
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 const app = express()
 
 // Body-Parser middleware
-//app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.post('/todos', (req, res) => {
