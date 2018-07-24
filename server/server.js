@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const chalk = require('chalk')
+const _ = require('lodash')
 
 const { ObjectID } = require('mongodb')
 const { mongoose } = require('./db/mongoose')
@@ -68,6 +69,32 @@ app.delete('/todos/:id', (req, res) => {
     res.json(todo)
   }, (err) => {
     res.status(400).send(err)
+  })
+})
+
+app.patch('/todos/:id', (req, res) => {
+  const id = req.params.id
+  const body = _.pick(req.body, ['text', 'completed'])
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send()
+  }
+
+  if (_.isBoolean(body.completed) && body.completed) {
+    body.completedAt = new Date().getTime()
+  } else {
+    body.completed = false
+    body.completedAt = null
+  }
+
+  Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
+    if (!todo) {
+      res.status(404).send()
+    }
+
+    res.json({todo})
+  }).catch((err) => {
+    res.status(400).send()
   })
 })
 
